@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Sombari Alert!</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: monospace;
+      text-align: center;
+      color: lime;
+    }
+
+    /* Start screen */
+    #startScreen {
+      background-image: url("funny.webp");
+      background-size: cover;
+      background-position: center;
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    /* Button style */
+    .fancy-btn {
+      padding: 12px 24px;
+      font-size: 20px;
+      font-weight: bold;
+      border: none;
+      border-radius: 12px;
+      background-color: red;
+      color: white;
+      box-shadow: 0 0 15px #ffaaaa;
+      cursor: pointer;
+      transition: transform 0.2s ease;
+    }
+
+    .fancy-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 25px #ffcaca;
+    }
+
+    /* Main prank screen */
+    #mainContent {
+      display: none;
+      background-color: black;
+      min-height: 100vh;
+      padding-top: 40px;
+    }
+
+    h1 {
+      font-size: 50px;
+      animation: blink 1s infinite;
+      margin-bottom: 20px;
+    }
+
+    p {
+      font-size: 30px;
+      margin: 10px 0;
+    }
+
+    img.boat {
+      margin: 20px auto;
+      width: 300px;
+      border-radius: 20px;
+      box-shadow: 0 0 20px lime;
+    }
+
+    #stopBtnWrapper {
+      margin-top: 40px;
+    }
+
+    @keyframes blink {
+      0%, 50%, 100% { opacity: 1; }
+      25%, 75% { opacity: 0; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Start Screen -->
+  <div id="startScreen">
+    <button class="fancy-btn" onclick="startPrank()">START</button>
+  </div>
+
+  <!-- Main Prank Content -->
+  <div id="mainContent">
+    <h1>⚠️ SOMBARI DETECTED! ⚠️</h1>
+    <img class="boat" src="boat.png" alt="Sombari in Boat">
+    <p>Don’t play games, da!</p>
+    <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
+
+    <!-- Stop button moved a bit lower -->
+    <div id="stopBtnWrapper">
+      <button class="fancy-btn" onclick="fakeStop()">STOP</button>
+    </div>
+  </div>
+
+  <!-- Audio Elements -->
+  <audio id="lazy" preload="auto" loop>
+    <source src="lazy.wav" type="audio/wav">
+  </audio>
+
+  <audio id="voice" preload="auto">
+    <source src="goodTry.wav" type="audio/wav">
+  </audio>
+
+  <script>
+    const startScreen = document.getElementById("startScreen");
+    const mainContent = document.getElementById("mainContent");
+    const lazy = document.getElementById("lazy");
+    const voice = document.getElementById("voice");
+
+    function startPrank() {
+      startScreen.style.display = "none";
+      mainContent.style.display = "block";
+
+      lazy.volume = 0.4;
+      lazy.currentTime = 0;
+      lazy.play().catch(() => {
+        alert("Sound might be blocked. Tap again if no audio.");
+      });
+    }
+
+    function fakeStop() {
+      lazy.pause();
+      lazy.currentTime = 0;
+
+      voice.pause();
+      voice.currentTime = 0;
+      voice.play();
+
+      alert("LOL 🤣 Good try bro! Only the machi master can stop this.");
+
+      voice.onended = () => {
+        lazy.play();
+      };
+    }
+
+    // Secret Ctrl+M to stop all audio
+    window.addEventListener("keydown", (e) => {
+      if (e.ctrlKey && e.key.toLowerCase() === 'm') {
+        lazy.pause();
+        voice.pause();
+        lazy.currentTime = 0;
+        voice.currentTime = 0;
+        alert("Machi master stopped everything 😎");
+      }
+    });
+  </script>
+</body>
+</html>
