@@ -1,6 +1,8 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sombari Alert!</title>
   <style>
     body {
@@ -8,9 +10,9 @@
       font-family: monospace;
       text-align: center;
       color: lime;
+      background-color: black;
     }
 
-    /* Start screen */
     #startScreen {
       background-image: url("funny.webp");
       background-size: cover;
@@ -21,10 +23,9 @@
       align-items: center;
     }
 
-    /* Button style */
     .fancy-btn {
-      padding: 12px 24px;
-      font-size: 20px;
+      padding: 5vw 10vw;
+      font-size: 6vw;
       font-weight: bold;
       border: none;
       border-radius: 12px;
@@ -40,34 +41,34 @@
       box-shadow: 0 0 25px #ffcaca;
     }
 
-    /* Main prank screen */
     #mainContent {
       display: none;
-      background-color: black;
-      min-height: 100vh;
-      padding-top: 40px;
+      padding-top: 5vh;
     }
 
     h1 {
-      font-size: 50px;
+      font-size: 8vw;
       animation: blink 1s infinite;
-      margin-bottom: 20px;
+      margin-bottom: 5vw;
+      padding: 0 5vw;
     }
 
     p {
-      font-size: 30px;
-      margin: 10px 0;
+      font-size: 5vw;
+      margin: 3vw 0;
+      padding: 0 6vw;
     }
 
     img.boat {
-      margin: 20px auto;
-      width: 300px;
+      width: 80%;
+      max-width: 320px;
       border-radius: 20px;
       box-shadow: 0 0 20px lime;
+      margin-top: 5vw;
     }
 
     #stopBtnWrapper {
-      margin-top: 40px;
+      margin-top: 6vw;
     }
 
     @keyframes blink {
@@ -90,7 +91,6 @@
     <p>Don’t play games, da!</p>
     <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
 
-    <!-- Stop button moved a bit lower -->
     <div id="stopBtnWrapper">
       <button class="fancy-btn" onclick="fakeStop()">STOP</button>
     </div>
@@ -137,7 +137,6 @@
       };
     }
 
-    // Secret Ctrl+M to stop all audio
     window.addEventListener("keydown", (e) => {
       if (e.ctrlKey && e.key.toLowerCase() === 'm') {
         lazy.pause();
