@@ -4,14 +4,15 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sombari Alert!</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bangers&display=swap" rel="stylesheet">
   <style>
     body {
       margin: 0;
-      font-family: monospace;
+      font-family: 'Bangers', cursive;
       text-align: center;
       color: lime;
       background-color: black;
-      overflow-y: auto; /* scrolling enabled */
+      overflow-y: auto;
     }
 
     #startScreen {
@@ -35,6 +36,7 @@
       box-shadow: 0 0 15px #ffaaaa;
       cursor: pointer;
       transition: transform 0.2s ease;
+      font-family: 'Bangers', cursive;
     }
 
     .fancy-btn:hover {
@@ -54,17 +56,19 @@
     }
 
     h1 {
-      font-size: 7vw;
+      font-size: 8vw;
       animation: blink 1s infinite;
       margin: 0;
       display: flex;
       align-items: center;
       gap: 2vw;
+      text-shadow: 2px 2px 0 #ff00ff, 4px 4px 0 #00ffff;
     }
 
     p {
       font-size: 5.5vw;
       margin: 1vw 0;
+      text-shadow: 1.5px 1.5px 0 #ff6600, 3px 3px 0 #000;
     }
 
     img.boat {
@@ -75,7 +79,7 @@
     }
 
     #stopBtnWrapper {
-      margin-top: 1.5vw; /* reduced spacing below text */
+      margin-top: 1.5vw;
     }
 
     @keyframes blink {
