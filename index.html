@@ -2,7 +2,6 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Sombari Alert!</title>
   <style>
     body {
@@ -12,7 +11,6 @@
       color: lime;
       background-color: black;
     }
-
     #startScreen {
       background-image: url("funny.webp");
       background-size: cover;
@@ -22,7 +20,6 @@
       justify-content: center;
       align-items: center;
     }
-
     .fancy-btn {
       padding: 5vw 10vw;
       font-size: 6vw;
@@ -35,30 +32,25 @@
       cursor: pointer;
       transition: transform 0.2s ease;
     }
-
     .fancy-btn:hover {
       transform: scale(1.05);
       box-shadow: 0 0 25px #ffcaca;
     }
-
     #mainContent {
       display: none;
       padding-top: 5vh;
     }
-
     h1 {
       font-size: 8vw;
       animation: blink 1s infinite;
       margin-bottom: 5vw;
       padding: 0 5vw;
     }
-
     p {
       font-size: 5vw;
       margin: 3vw 0;
       padding: 0 6vw;
     }
-
     img.boat {
       width: 80%;
       max-width: 320px;
@@ -66,11 +58,9 @@
       box-shadow: 0 0 20px lime;
       margin-top: 5vw;
     }
-
     #stopBtnWrapper {
       margin-top: 6vw;
     }
-
     @keyframes blink {
       0%, 50%, 100% { opacity: 1; }
       25%, 75% { opacity: 0; }
@@ -79,73 +69,89 @@
 </head>
 <body>
 
-  <!-- Start Screen -->
-  <div id="startScreen">
-    <button class="fancy-btn" onclick="startPrank()">START</button>
+<div id="startScreen">
+  <button class="fancy-btn" onclick="startPrank()">START</button>
+</div>
+
+<div id="mainContent">
+  <h1>⚠️ SOMBARI DETECTED! ⚠️</h1>
+  <img class="boat" src="boat.png" alt="Sombari in Boat">
+  <p>Don’t play games, da!</p>
+  <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
+  <div id="stopBtnWrapper">
+    <button class="fancy-btn" onclick="fakeStop()">STOP</button>
   </div>
+</div>
 
-  <!-- Main Prank Content -->
-  <div id="mainContent">
-    <h1>⚠️ SOMBARI DETECTED! ⚠️</h1>
-    <img class="boat" src="boat.png" alt="Sombari in Boat">
-    <p>Don’t play games, da!</p>
-    <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
+<audio id="lazy" preload="auto" loop>
+  <source src="lazy.wav" type="audio/wav">
+</audio>
 
-    <div id="stopBtnWrapper">
-      <button class="fancy-btn" onclick="fakeStop()">STOP</button>
-    </div>
-  </div>
+<audio id="voice" preload="auto">
+  <source src="goodTry.wav" type="audio/wav">
+</audio>
 
-  <!-- Audio Elements -->
-  <audio id="lazy" preload="auto" loop>
-    <source src="lazy.wav" type="audio/wav">
-  </audio>
+<script>
+  const startScreen = document.getElementById("startScreen");
+  const mainContent = document.getElementById("mainContent");
+  const lazy = document.getElementById("lazy");
+  const voice = document.getElementById("voice");
+  let isLocked = true;
 
-  <audio id="voice" preload="auto">
-    <source src="goodTry.wav" type="audio/wav">
-  </audio>
+  function startPrank() {
+    startScreen.style.display = "none";
+    mainContent.style.display = "block";
+    lazy.volume = 0.4;
+    lazy.currentTime = 0;
+    lazy.play().catch(() => {
+      alert("Sound might be blocked. Tap again if no audio.");
+    });
 
-  <script>
-    const startScreen = document.getElementById("startScreen");
-    const mainContent = document.getElementById("mainContent");
-    const lazy = document.getElementById("lazy");
-    const voice = document.getElementById("voice");
+    // Prevent closing the page
+    window.onbeforeunload = function () {
+      return "You cannot escape the Sombari zone!";
+    };
+  }
 
-    function startPrank() {
-      startScreen.style.display = "none";
-      mainContent.style.display = "block";
+  function fakeStop() {
+    lazy.pause();
+    lazy.currentTime = 0;
+    voice.pause();
+    voice.currentTime = 0;
+    voice.play();
+    alert("LOL 🤣 Good try bro! Only the machi master can stop this.");
+    voice.onended = () => {
+      if (isLocked) lazy.play();
+    };
+  }
 
-      lazy.volume = 0.4;
-      lazy.currentTime = 0;
-      lazy.play().catch(() => {
-        alert("Sound might be blocked. Tap again if no audio.");
-      });
-    }
+  // Prevent some common shortcuts (F12, Ctrl+W, Ctrl+Shift+I, etc.)
+  document.addEventListener("keydown", (e) => {
+    if (isLocked) {
+      // Disable most common exit shortcuts
+      if (
+        (e.ctrlKey && e.key.toLowerCase() === 'w') || // Ctrl+W
+        (e.ctrlKey && e.shiftKey && e.key.toLowerCase() === 'i') || // Dev tools
+        e.key === 'F12' ||
+        (e.metaKey && e.key.toLowerCase() === 'w') // Cmd+W on Mac
+      ) {
+        e.preventDefault();
+        alert("Aiyo, no escaping da!");
+      }
 
-    function fakeStop() {
-      lazy.pause();
-      lazy.currentTime = 0;
-
-      voice.pause();
-      voice.currentTime = 0;
-      voice.play();
-
-      alert("LOL 🤣 Good try bro! Only the machi master can stop this.");
-
-      voice.onended = () => {
-        lazy.play();
-      };
-    }
-
-    window.addEventListener("keydown", (e) => {
+      // Stop the prank only with Ctrl+M
       if (e.ctrlKey && e.key.toLowerCase() === 'm') {
+        isLocked = false;
         lazy.pause();
         voice.pause();
         lazy.currentTime = 0;
         voice.currentTime = 0;
+        window.onbeforeunload = null; // Allow exit now
         alert("Machi master stopped everything 😎");
       }
-    });
-  </script>
+    }
+  });
+</script>
+
 </body>
 </html>
