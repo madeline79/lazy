@@ -11,7 +11,7 @@
       text-align: center;
       color: lime;
       background-color: black;
-      overflow: hidden;
+      overflow-y: auto; /* scrolling enabled */
     }
 
     #startScreen {
@@ -44,7 +44,7 @@
 
     #mainContent {
       display: none;
-      height: 100vh;
+      min-height: 100vh;
       display: flex;
       flex-direction: column;
       justify-content: space-evenly;
@@ -75,7 +75,7 @@
     }
 
     #stopBtnWrapper {
-      margin-top: 1.5vw; /* tightened space below text */
+      margin-top: 1.5vw; /* reduced spacing below text */
     }
 
     @keyframes blink {
