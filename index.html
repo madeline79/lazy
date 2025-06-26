@@ -11,6 +11,7 @@
       text-align: center;
       color: lime;
       background-color: black;
+      overflow: hidden;
     }
 
     #startScreen {
@@ -24,8 +25,8 @@
     }
 
     .fancy-btn {
-      padding: 6vw 12vw;
-      font-size: 7vw;
+      padding: 5vw 10vw;
+      font-size: 6.5vw;
       font-weight: bold;
       border: none;
       border-radius: 12px;
@@ -43,33 +44,35 @@
 
     #mainContent {
       display: none;
-      padding-top: 5vh;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-evenly;
+      align-items: center;
+      padding: 4vw;
+      box-sizing: border-box;
     }
 
     h1 {
-      font-size: 9vw;
+      font-size: 7vw;
       animation: blink 1s infinite;
-      margin-bottom: 4vw;
-      padding: 0 5vw;
+      margin: 0;
     }
 
     p {
-      font-size: 6vw;
-      margin: 4vw 0;
-      padding: 0 6vw;
+      font-size: 5.5vw;
+      margin: 1vw 0;
     }
 
     img.boat {
       width: 90%;
-      max-width: 450px;
-      border-radius: 20px;
+      max-width: 480px;
+      border-radius: 18px;
       box-shadow: 0 0 20px lime;
-      margin: 6vw auto;
-      display: block;
     }
 
     #stopBtnWrapper {
-      margin-top: 12vw;
+      margin-top: 2vw;
     }
 
     @keyframes blink {
@@ -89,9 +92,10 @@
   <div id="mainContent">
     <h1>⚠️ SOMBARI DETECTED! ⚠️</h1>
     <img class="boat" src="boat.png" alt="Sombari in Boat">
-    <p>Don’t play games, da!</p>
-    <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
-
+    <div>
+      <p>Don’t play games, da!</p>
+      <p>“You're not lazy… you're in power-saving mode!” 🔋😴</p>
+    </div>
     <div id="stopBtnWrapper">
       <button class="fancy-btn" onclick="fakeStop()">STOP</button>
     </div>
@@ -114,7 +118,7 @@
 
     function startPrank() {
       startScreen.style.display = "none";
-      mainContent.style.display = "block";
+      mainContent.style.display = "flex";
 
       lazy.volume = 0.4;
       lazy.currentTime = 0;
